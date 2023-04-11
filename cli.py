@@ -3,6 +3,7 @@ from pathlib import Path
 import click
 
 from scorer.data import BuildFirstEssaySetDataset
+from scorer.train import TrainScorer
 
 
 @click.group()
@@ -18,12 +19,13 @@ def build_dataset(source: Path, target: Path):
 
 
 @click.command()
-@click.option("--data", "-d", type=Path, help="Caminho para os dados a serem utilizados no treino.")
-def train(data: Path):
-    TrainModel()(data)
+@click.option("--path", "-p", type=Path, help="Caminho para os dados a serem utilizados no treino.")
+def train(path: Path):
+    TrainScorer()(path)
 
 
 cli.add_command(build_dataset)
+cli.add_command(train)
 
 
 if __name__ == "__main__":
